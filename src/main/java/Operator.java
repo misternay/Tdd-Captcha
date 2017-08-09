@@ -14,4 +14,15 @@ public class Operator {
 
         return operatorArray[this.operator - 1];
     }
+
+    public int calculate(int left, int right) {
+        final int MULTIPLY = 2;
+        final int MINUS = 3;
+
+        if (this.operator == MULTIPLY)
+            return left * right;
+        if (this.operator == MINUS)
+            return left - right;
+        return left + right;
+    }
 }

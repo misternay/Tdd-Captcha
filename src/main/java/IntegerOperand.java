@@ -12,4 +12,10 @@ public class IntegerOperand implements Operand{
 
         return String.valueOf(this.operand);
     }
+
+    @Override
+    public int getValue() {
+        return this.operand;
+    }
+
 }

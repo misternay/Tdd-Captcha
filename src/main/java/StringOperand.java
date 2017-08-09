@@ -15,4 +15,9 @@ public class StringOperand implements Operand {
 
         return number[this.operand - 1];
     }
+
+    @Override
+    public int getValue() {
+        return this.operand;
+    }
 }

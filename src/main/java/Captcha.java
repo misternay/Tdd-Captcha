@@ -2,6 +2,8 @@ public class Captcha {
     private Operand left;
     private Operand right;
     private Operator operator;
+
+
     public Captcha(int pattern, int left, int operator, int right) {
         this.left = OperandFactory.createLeft(pattern, left);
         this.right = OperandFactory.createRight(pattern, right);
@@ -13,7 +15,6 @@ public class Captcha {
     }
 
     public String getOperator() {
-
         return operator.toString();
     }
 
@@ -26,12 +27,10 @@ public class Captcha {
     }
 
     public int getAnswer() {
-        if(Integer.parseInt(getRight()) == 1){
-            return 2;
-        }else if(Integer.parseInt(getRight()) == 5){
-            return 6;
-        }else {
-            return 9;
-        }
+        return this.operator.calculate(left.getValue(), right.getValue());
+    }
+
+    public boolean isCorrect(int expectAnswer) {
+        return expectAnswer == getAnswer();
     }
 }

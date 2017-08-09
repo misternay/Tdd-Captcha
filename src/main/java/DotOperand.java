@@ -20,4 +20,9 @@ public class DotOperand implements Operand {
 
         return Stream.generate(()->".").limit(this.operand).collect(joining());
     }
+
+    @Override
+    public int getValue() {
+        return this.operand;
+    }
 }

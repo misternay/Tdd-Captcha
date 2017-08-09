@@ -17,20 +17,66 @@ public class CaptchaSpec {
     private final int dummyLeft = 1;
 
     @Test
-    public void firstPatternLeftPlusRightShouldBeTwo() throws Exception {
-        Captcha captcha = new Captcha(1,1,1,1);
+    public void correctMinusShouldBeOne(){
+        Captcha captcha = new Captcha(dummyPattern,3,3,2);
+        Assert.assertTrue(captcha.isCorrect(1));
+    }
+
+    @Test
+    public void correctMultiplyShouldBeNine() {
+        Captcha captcha = new Captcha(dummyPattern,9,2,1);
+        Assert.assertTrue(captcha.isCorrect(9));
+    }
+
+    @Test
+    @Parameters({
+            "1,2,2,2,4",
+            "1,2,2,4,8"
+    })
+    public void correctMultiplyShouldBeTrue(int pattern,int left, int operator,int right,int expected){
+        Captcha captcha = new Captcha(pattern,left,operator,right);
+        Assert.assertTrue(captcha.isCorrect(expected));
+    }
+
+    @Test
+    public void leftMinusRightShouldBeOne() throws Exception{
+        Captcha captcha = new Captcha(dummyPattern,3,3,2);
+        Assert.assertEquals(1,captcha.getAnswer());
+    }
+
+    @Test
+    public void leftMinusRightShouldBeFive() throws Exception{
+        Captcha captcha = new Captcha(dummyPattern,9,3,4);
+        Assert.assertEquals(5,captcha.getAnswer());
+    }
+
+    @Test
+    public void leftMultiplyRightShouldBeFour() throws Exception{
+        Captcha captcha = new Captcha(dummyPattern,2,2,2);
+        Assert.assertEquals(4,captcha.getAnswer());
+    }
+
+    @Test
+    public void leftMultiplyRightShouldBeOne() throws Exception{
+        Captcha captcha = new Captcha(dummyPattern,1,2,1);
+        Assert.assertEquals(1,captcha.getAnswer());
+    }
+
+    @Test
+    public void leftPlusRightShouldBeTwo() throws Exception {
+        Captcha captcha = new Captcha(dummyPattern,1,1,1);
         Assert.assertEquals(2,captcha.getAnswer());
     }
 
     @Test
-    public void firstPatternLeftPlusRightShouldBeSix() throws Exception {
-        Captcha captcha = new Captcha(1,1,1,5);
+    public void leftPlusRightShouldBeSix() throws Exception {
+        Captcha captcha = new Captcha(dummyPattern,1,1,5);
         Assert.assertEquals(6,captcha.getAnswer());
     }
 
     @Test
-    public void firstPatternLeftPlusRightShouldBeNine() throws Exception {
-        Captcha captcha = new Captcha(1,1,1,8);
+    public void leftPlusRightShouldBeNine() throws Exception {
+        Captcha captcha = new Captcha(dummyPattern,1,1,8);
         Assert.assertEquals(9,captcha.getAnswer());
     }
 
