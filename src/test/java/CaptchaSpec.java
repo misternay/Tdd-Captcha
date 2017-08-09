@@ -1,15 +1,38 @@
+import junitparams.JUnitParamsRunner;
+import junitparams.Parameters;
 import org.junit.Assert;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
 
 /**
  * Created by zerosx on 8/8/2560.
  */
+@RunWith(JUnitParamsRunner.class)
 public class CaptchaSpec {
 
     private final int dummyOperator = 1;
     private final int dummyRight = 1;
     private final int dummyPattern = 1;
     private final int dummyLeft = 1;
+
+    @Test
+    public void firstPatternLeftPlusRightShouldBeTwo() throws Exception {
+        Captcha captcha = new Captcha(1,1,1,1);
+        Assert.assertEquals(2,captcha.getAnswer());
+    }
+
+    @Test
+    public void firstPatternLeftPlusRightShouldBeSix() throws Exception {
+        Captcha captcha = new Captcha(1,1,1,5);
+        Assert.assertEquals(6,captcha.getAnswer());
+    }
+
+    @Test
+    public void firstPatternLeftPlusRightShouldBeNine() throws Exception {
+        Captcha captcha = new Captcha(1,1,1,8);
+        Assert.assertEquals(9,captcha.getAnswer());
+    }
 
     @Test
     public  void  firstPatternLeftPlusRight(){
@@ -57,7 +80,7 @@ public class CaptchaSpec {
         Assert.assertEquals("9", captcha.getLeft());
     }
 
-    @Test
+    /*@Test
     public void firstPatternLeftShouldBeOne() {
         Captcha captcha = new Captcha(1, 1, dummyOperator, dummyRight);
         Assert.assertEquals("One", captcha.getLeft());
@@ -73,6 +96,16 @@ public class CaptchaSpec {
     public void firstPatternLeftShouldBeFive() {
         Captcha captcha = new Captcha(1, 5, 1, 1);
         Assert.assertEquals("Five", captcha.getLeft());
+    }*/
+
+    @Test
+    @Parameters({
+            "1, 5, 1, 1, Five",
+            "1, 9, 1, 1, Nine"
+    })
+    public void name(int pattern, int left, int operator, int right, String result) throws Exception {
+        Captcha captcha = new Captcha(pattern, left, operator, right);
+        Assert.assertEquals(result, captcha.getLeft());
     }
 
     @Test

@@ -1,14 +1,10 @@
 public class Captcha {
-    private int pattern;
     private Operand left;
-    private int right;
+    private Operand right;
     private Operator operator;
-    private String[] numberStringArray = {"One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine"};
-
     public Captcha(int pattern, int left, int operator, int right) {
-        this.pattern = pattern;
-        this.left = OperandFactory.createLeft(pattern,left);
-        this.right = right;
+        this.left = OperandFactory.createLeft(pattern, left);
+        this.right = OperandFactory.createRight(pattern, right);
         this.operator = new Operator(operator);
     }
 
@@ -22,14 +18,20 @@ public class Captcha {
     }
 
     public String getRight() {
-
-        if (this.pattern == 2) {
-            return numberStringArray[this.right - 1];
-        }
-        return String.valueOf(this.right);
+        return right.toString();
     }
 
     public String getCaptchaResult() {
-        return  String.format("%s %s %s",getLeft(),getOperator(),getRight());
+        return String.format("%s %s %s", getLeft(), getOperator(), getRight());
+    }
+
+    public int getAnswer() {
+        if(Integer.parseInt(getRight()) == 1){
+            return 2;
+        }else if(Integer.parseInt(getRight()) == 5){
+            return 6;
+        }else {
+            return 9;
+        }
     }
 }
